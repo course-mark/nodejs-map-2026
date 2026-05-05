@@ -1,9 +1,9 @@
 const path = require('path')
 
-const dirArray = __dirname.split('/')
 
-const finalDir = dirArray.slice(0,dirArray.length-1)
-console.log(finalDir.join('/'))
+const finalDir = __dirname.split('/').slice(0,__dirname.split('/').length-1).join('/')
 
-const finalpath = path.join(__dirname,'..')
+console.log(finalDir)
+
+const finalpath = path.join(__dirname,'..','..')
 console.log(finalpath)
