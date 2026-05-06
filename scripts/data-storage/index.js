@@ -40,19 +40,21 @@ const fs = require('fs')
 
 const fileData = fs.readFileSync('data-store.json', 'utf-8')
 const fileJson = JSON.parse(fileData)
-if(!fileJson.student){
+if (!fileJson.student) {
     fileJson.student = [{}]
 }
 
 
-propertiesInJson.map(prop=>{
-    // fileJson.student[0] => {}
-    // 1. fileJson.student[0].name = manjot
-    // 2. fileJson.student[0].rollNo = 21
-    fileJson.student[0][prop.name] = prop.value
-})
+if (operationType === 'add' || operationType === 'create') {
+    propertiesInJson.map(prop => {
+        // fileJson.student[0] => {}
+        // 1. fileJson.student[0].name = manjot
+        // 2. fileJson.student[0].rollNo = 21
+        fileJson.student[0][prop.name] = prop.value
+    })
 
-console.log(fileJson.student)
+    console.log(fileJson.student)
 
-const jsonstring = JSON.stringify(fileJson)
-fs.writeFileSync('data-store.json', jsonstring)
+    const jsonstring = JSON.stringify(fileJson)
+    fs.writeFileSync('data-store.json', jsonstring)
+}
