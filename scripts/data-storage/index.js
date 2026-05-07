@@ -37,7 +37,6 @@ if (entityType === 'student') {
     })
 
 const keys = propertiesInJson.map(prop => prop.key)
-
     // has name?
     if (!keys.includes('name')) {
         throw new Error("name is required for student entity");
