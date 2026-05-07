@@ -21,7 +21,7 @@ if (entityType === 'student') {
                 throw new Error("rollNo should not be empty student entity");
             }
             // apply schema validation for unique roll number
-            if (fileJson.student.map(({ rollNo, name }) => rollNo).includes(value)) {
+            if (fileJson?.student?.map(({ rollNo, name }) => rollNo).includes(value)) {
                 throw new Error(`Roll number ${value} already exists.`);
             }
 
