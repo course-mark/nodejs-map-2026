@@ -67,7 +67,6 @@ if (operationType === 'add' || operationType === 'create') {
         fileJson[entityType][lengthOfEntity][prop.key] = prop.value
     })
 
-
     const jsonstring = JSON.stringify(fileJson, null, 2)
     fs.writeFileSync('data-store.json', jsonstring)
 }
