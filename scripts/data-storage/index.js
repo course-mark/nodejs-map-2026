@@ -77,3 +77,5 @@ if (operationType === 'add' || operationType === 'create') {
 if (operationType === 'list') {
     console.log(fileJson[entityType])
 }
+
+console.log(process.argv)
