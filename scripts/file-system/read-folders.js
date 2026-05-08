@@ -10,7 +10,7 @@ const arrayOfFilesFolders = folders
     .filter(fileOrFolder => {
         const isFile = !fileOrFolder.isDirectory()
         const isDirectory = fileOrFolder.isDirectory()
-        return isDirectory
+        return isFile
 
     }).map(fileOrFolder => {
         return ({

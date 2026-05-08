@@ -4,21 +4,38 @@ const operationType = process.argv[3]
 
 
 const [, , , , ...properties] = process.argv
-let propertiesInJson = properties.map(prop => ({
+let dataProperties = properties.filter(prop => {
+    if (prop.includes(":")) {
+        return true;
+    }
+})
+
+let conditions = properties.filter(prop => {
+    if (prop.includes("=")) {
+        return true;
+    }
+})
+
+let dataPropertiesInJson = dataProperties.map(prop => ({
     key: prop.split(":")[0],
     value: prop.split(":")[1]
+}))
+
+let conditionPropertiesInJson = conditions.map(prop => ({
+    key: prop.split("=")[0],
+    value: prop.split("=")[1]
 }))
 // check if Data Store exists
 const fs = require('fs')
 
 const fileData = fs.readFileSync('data-store.json', 'utf-8')
-const fileJson = JSON.parse(fileData)
+let fileJson = JSON.parse(fileData)
 
 if (entityType === 'student') {
     switch (operationType) {
         case 'create':
         case 'add': {
-            propertiesInJson = propertiesInJson.map(({key, value}) => {
+            dataPropertiesInJson = dataPropertiesInJson.map(({ key, value }) => {
                 if (key === "rollNo") {
                     if (!value) {
                         throw new Error("rollNo should not be empty student entity");
@@ -37,7 +54,7 @@ if (entityType === 'student') {
                 }
             })
 
-            const keys = propertiesInJson.map(prop => prop.key)
+            const keys = dataPropertiesInJson.map(prop => prop.key)
             // has name?
             if (!keys.includes('name')) {
                 throw new Error("name is required for student entity");
@@ -64,7 +81,7 @@ if (operationType === 'add' || operationType === 'create') {
         fileJson[entityType][lengthOfEntity] = {}
     }
 
-    propertiesInJson.map(prop => {
+    dataPropertiesInJson.map(prop => {
         // fileJson.student[0] => {}
         // 1. fileJson.student[0].name = manjot
         // 2. fileJson.student[0].rollNo = 21
@@ -78,4 +95,39 @@ if (operationType === 'list') {
     console.log(fileJson[entityType])
 }
 
-console.log(process.argv)
+if (operationType === 'delete') {
+
+    const { key, value } = conditionPropertiesInJson[0]
+    const existingEntityList = fileJson[entityType]
+    const newList = existingEntityList.filter((entityObject) => {
+        return entityObject[key] !== value
+    })
+    fileJson[entityType] = newList
+}
+
+if (operationType === 'edit') {
+    const { key, value } = conditionPropertiesInJson[0]
+    const existingEntityList = fileJson[entityType]
+    const entityToEdit = existingEntityList.find((entityObject) => {
+        return entityObject[key] === value
+
+    })
+
+    if (!entityToEdit) {
+        throw new Error(`No entity found with ${key} = ${value}`)
+    }
+
+    dataPropertiesInJson.forEach(({ key, value }) => {
+        entityToEdit[key] = value
+    })
+    
+}
+
+
+const jsonstring = JSON.stringify(fileJson, null, 2)
+    fs.writeFileSync('data-store.json', jsonstring)
+    console.log(process.argv)
+
+
+
+

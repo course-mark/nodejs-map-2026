@@ -6,7 +6,7 @@
 // let [node,filepath,...numbers] = process.argv
 let numbers = process.argv.slice(3)
 
-let command = process.argv[2]
+let command = process.argv[2] 
 console.log(command)
 
 // let sum = 0;
