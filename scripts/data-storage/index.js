@@ -123,10 +123,16 @@ if (operationType === 'edit') {
     
 }
 
+if (operationType === 'get') {
+    const { key, value } = conditionPropertiesInJson[0]
+    const existingEntity= fileJson[entityType]
+    const entityToGet = existingEntity.find((entityObject)=> {
+        return entityObject[key] === value
+    })
 
-const jsonstring = JSON.stringify(fileJson, null, 2)
-    fs.writeFileSync('data-store.json', jsonstring)
-    console.log(process.argv)
+console.log(entityToGet)    
+}
+
 
 
 
