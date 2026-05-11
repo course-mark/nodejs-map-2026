@@ -89,7 +89,7 @@ if (operationType === 'add' || operationType === 'create') {
     })
 
     const jsonstring = JSON.stringify(fileJson, null, 2)
-    fs.writeFileSync('data-store.json', jsonstring)
+    fs.writeFileSync('data-store.json', jsonstring)   
 }
 if (operationType === 'list') {
     console.log(fileJson[entityType])
