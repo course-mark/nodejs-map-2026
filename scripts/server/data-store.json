@@ -1,0 +1,22 @@
+{
+  "student": [
+    {
+      "name": "saman",
+      "rollNo": "15"
+    },
+    {
+      "name": "saman",
+      "rollNo": "16"
+    },
+    {
+      "name": "saman",
+      "rollNo": "17"
+    }
+  ],
+  "product": [
+    {
+      "productName": "Parle2G",
+      "price": "100"
+    }
+  ]
+}
