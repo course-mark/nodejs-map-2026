@@ -23,27 +23,6 @@ const server = http.createServer((req, res) => {
                 break;
         }
     }
-
-    // const html = `
-    // <div>
-    //     <table>
-    //         <thead>
-    //             <tr>
-    //                 <th>name</th>
-    //                 <th>rollno</th>
-    //             </tr>
-    //         </thead>
-    //         <tbody>
-    //             <tr>
-    //                 <td>Saman</td>
-    //                 <td>21</td>
-    //             </tr>
-    //         </tbody>
-    //     </table>
-    // </div>
-    // `
-    // res.end(JSON.stringify(resp))
-    // res.end(html)
     const html = convertJsonToHTMLTable(resp)
     res.writeHead(200, {
         'content-type': 'text/html'
