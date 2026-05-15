@@ -5,11 +5,33 @@ const server = http.createServer((req, res) => {
     console.log("Method:", req.method)
     console.log("URL:", req.url)
     console.log("Headers:", req.headers)
-
+    let bodyData;
     req.on('data', (body) => {
-        console.log(body.toString())
+        bodyData = JSON.parse(body.toString())
     })
     let resp;
+    req.on('end', () => {
+        if (req.method === "POST") {
+            switch (req.url) {
+                case '/students': {
+                    console.log("Calling Create Student Function")
+                    createStudent(bodyData)
+                    res.end("Student Created")
+                }
+                    break;
+                case '/products': {
+                    console.log("Calling Create Product Function")
+                    createProduct(bodyData)
+                    res.end("Product Created")
+                }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    })
+
     if (req.method === "GET") {
         switch (req.url) {
             case '/students':
@@ -22,12 +44,13 @@ const server = http.createServer((req, res) => {
             default:
                 break;
         }
+        const html = convertJsonToHTMLTable(resp)
+        res.writeHead(200, {
+            'content-type': 'text/html'
+        })
+        res.end(html)
     }
-    const html = convertJsonToHTMLTable(resp)
-    res.writeHead(200, {
-        'content-type': 'text/html'
-    })
-    res.end(html)
+
 
 
 })
@@ -66,3 +89,25 @@ const convertJsonToHTMLTable = (json) => {
 server.listen(4000, () => {
     console.log("Server is running")
 })
+
+const fs = require('fs')
+
+const fileData = fs.readFileSync('data-store.json', 'utf-8')
+let fileJson = JSON.parse(fileData)
+const createStudent = (dataStudent) => {
+    const entityType = 'student'
+    let lengthOfEntity = fileJson[entityType].length
+
+    if (!fileJson[entityType][lengthOfEntity]) {
+        fileJson[entityType][lengthOfEntity] = {}
+    }
+
+    fileJson[entityType][lengthOfEntity] = dataStudent
+
+    const jsonstring = JSON.stringify(fileJson, null, 2)
+    fs.writeFileSync('data-store.json', jsonstring)
+    console.log(dataStudent)
+}
+const createProduct = (dataProduct) => {
+    console.log(dataProduct)
+}
