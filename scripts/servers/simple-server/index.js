@@ -44,14 +44,9 @@ const server = http.createServer((req, res) => {
             default:
                 break;
         }
-        const html = convertJsonToHTMLTable(resp)
-        res.writeHead(200, {
-            'content-type': 'text/html'
-        })
-        res.end(html)
+        sendHtmlResponse(resp, res)
+        sendFileResponse('data-store.json', res)
     }
-
-
 
 })
 
@@ -110,4 +105,21 @@ const createStudent = (dataStudent) => {
 }
 const createProduct = (dataProduct) => {
     console.log(dataProduct)
+}
+
+function sendHtmlResponse(resp, res) {
+    const html = convertJsonToHTMLTable(resp)
+    res.writeHead(200, {
+        'content-type': 'text/html'
+    })
+    res.end(html)
+}
+function sendFileResponse(fileName, res) {
+    const fileData = fs.readFileSync(fileName, 'utf-8')
+    res.writeHead(200, {
+        'content-disposition': `attachment; filename=${fileName}`,
+        'content-type': 'application/json',
+        'content-length': Buffer.byteLength(fileData)
+    })
+    res.end(fileData)
 }
