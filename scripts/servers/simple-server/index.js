@@ -40,12 +40,17 @@ const server = http.createServer((req, res) => {
             case '/products':
                 resp = dataStore.product
                 break;
+            case '/files':
+                sendFileResponse('data-store.json', res)
+                break;
 
             default:
                 break;
         }
-        sendHtmlResponse(resp, res)
-        sendFileResponse('data-store.json', res)
+        if (req.url !== '/files') {
+            sendHtmlResponse(resp, res)
+            return
+        }
     }
 
 })
