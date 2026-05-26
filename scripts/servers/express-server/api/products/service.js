@@ -6,7 +6,8 @@ const databaseFilePath = path.resolve(__dirname, '../../db/data-store.json')
 const fileData = fs.readFileSync(databaseFilePath)
 const fileJson = JSON.parse(fileData)
 const createProduct = (dataProducts)=>{
-    const entityType = 'products'
+    const entityType = 'product'
+    console.log({fileJson})
     let lengthOfEntity = fileJson[entityType].length
 
     if (!fileJson[entityType][lengthOfEntity]) {
