@@ -3,3 +3,4 @@ scripts/file-system/hello.js
 scripts/data-storage/data-store.json
 scripts/servers/express-server/node_modules
 data-store.json
+scripts/mongo-db/node_modules
