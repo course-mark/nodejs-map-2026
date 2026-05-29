@@ -1,14 +1,14 @@
-const { createStudent, getStudents } = require('./service')
+const { createStudent, getStudents } = require('./service.db')
 
-const getStudentController = (req, res) => {
-    const students = getStudents()
+const getStudentController = async (req, res) => {
+    const students = await getStudents()
     res.json(students)
 }
 
-const createStudentController = (req, res) => {
-    createStudent(req.body)
-    res.send("Student Created")
-
+const createStudentController = async (req, res) => {
+    const dataStudent = req.body
+    const student = await createStudent(dataStudent)
+    res.json(student)
 }
 
 

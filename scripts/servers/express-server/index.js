@@ -5,6 +5,7 @@ const productRouter = require('./api/products/routes')
 const cors = require('cors')
 const app = express();
 const port = 4000;
+require('./db')
 
 app.use(bodyParser.json());
 app.use(cors({
