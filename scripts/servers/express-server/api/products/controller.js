@@ -1,14 +1,16 @@
-const { createProduct, getProducts } = require("./service")
+const { createProduct, getProducts } = require("./service.db")
 
-const getProductController = (req , res)=>{
-    const products = getProducts()
+const getProductController = async(req , res)=>{
+    const products = await getProducts()
     res.json(products)
     // res.json(getProducts())
 }
 
-const createProductController = (req , res)=>{
+const createProductController = async(req , res)=>{
     createProduct(req.body)
-    res.send("product Created")
+     const product = await getProducts(createProduct)
+        res.json(product)
+  
 }
 
 module.exports = {
