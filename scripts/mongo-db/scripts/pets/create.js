@@ -11,3 +11,4 @@ const Cat = mongoose.model('Cat', {
 });
 const kitty = new Cat({ name: catname });
 kitty.save().then(() => console.log('meow'));
+
