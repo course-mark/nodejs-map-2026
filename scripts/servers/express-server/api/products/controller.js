@@ -3,7 +3,7 @@ const { createProduct, getProducts } = require("./service.db")
 const getProductController = async(req , res)=>{
     const products = await getProducts()
     res.json(products)
-    // res.json(getProducts())
+   
 }
 
 const createProductController = async(req , res)=>{
