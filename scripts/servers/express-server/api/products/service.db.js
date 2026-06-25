@@ -8,11 +8,21 @@ const product = new Products(dataProducts)
 return await product.save()
 }
 
-const getProducts = async ()=>{
-    return await Products.find().exec()
+const getProducts = async (id)=>{
+    return await Products.findById(id).exec()
+}
+
+const updateProduct = async (id, dataProducts) => {
+    return await Products.findByIdAndUpdate(id, dataProducts, { new: true }).exec()
+}
+
+const deleteProduct = async (id) => {
+    return await Products.findByIdAndDelete(id).exec()
 }
 
 module.exports = {
     createProduct,
-    getProducts
+    getProducts,
+    updateProduct,
+    deleteProduct
 }
