@@ -7,6 +7,7 @@ const getStudentController = async (req, res) => {
 
 const createStudentController = async (req, res) => {
     const dataStudent = req.body
+    console.log('body: ',dataStudent)
     const student = await createStudent(dataStudent)
     res.json(student)
 }
