@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRouter = require('./api/users/routes')
+const authRouter = require('./api/auth/routes')
 const cors = require('cors')
 const app = express();
 const port = 4000;
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users',userRouter)
+app.use('/auth',authRouter)
 
 
 app.listen(port, () => {
